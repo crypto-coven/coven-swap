@@ -4,7 +4,7 @@ import "openzeppelin-contracts/contracts/interfaces/IERC721.sol";
 import "openzeppelin-contracts/contracts/interfaces/IERC20.sol";
 import "openzeppelin-contracts/contracts/utils/cryptography/ECDSA.sol";
 import "openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol";
-import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import "openzeppelin/contracts/security/ReentrancyGuard.sol";
 
 pragma solidity ^0.8.10;
 
@@ -50,11 +50,7 @@ contract NFTSwapCommunity is ReentrancyGuard {
         
         (account, err) = _hash.toEthSignedMessageHash().tryRecover(_sig);
         
-        if (err != ECDSA.RecoverError.NoError) {
-            return false;
-        }
-        
-        if (account != _account) {
+        if (err != ECDSA.RecoverError.NoError || account != _account) {
             return false;
         }
         
@@ -88,7 +84,7 @@ contract NFTSwapCommunity is ReentrancyGuard {
         NFTContract.safeTransferFrom(_trade.dstUser, _trade.srcUser, _trade.dstTokenNum);
         
         finalizedTrades[hash] = true;
-
+        
         emit Swapped(hash, address(NFTContract), _trade.srcUser, _trade.srcTokenNum, _trade.dstUser, _trade.dstTokenNum);
     }
     
@@ -97,7 +93,7 @@ contract NFTSwapCommunity is ReentrancyGuard {
         require(_trade.srcUser == msg.sender, "Caller is not authorized to cancel this trade");
         
         bytes32 hash = keccak256(abi.encode(_trade));
-            
+        
         cancelledTrades[hash] = true;
         emit Cancelled(hash, address(NFTContract), _trade);
     }
