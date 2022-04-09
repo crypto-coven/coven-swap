@@ -30,7 +30,7 @@ contract NFTSwapCommunity is ReentrancyGuard {
     }
 
     event Swapped(bytes32 tradeHash, address token, address from, uint256 fromId, address to, uint256 toId);
-    event Cancelled(bytes32 tradeHash, address token, NFTTrade trade);
+    event Cancelled(bytes32 tradeHash, NFTTrade trade);
 
     IERC721 NFTContract;
     uint256 maxExpiry;
@@ -95,7 +95,7 @@ contract NFTSwapCommunity is ReentrancyGuard {
         bytes32 hash = keccak256(abi.encode(_trade));
         
         cancelledTrades[hash] = true;
-        emit Cancelled(hash, address(NFTContract), _trade);
+        emit Cancelled(hash, _trade);
     }
     
 }
