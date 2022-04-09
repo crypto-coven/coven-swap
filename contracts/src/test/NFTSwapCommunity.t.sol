@@ -29,7 +29,7 @@ contract CommunityNFT is ERC721 {
 
 contract NFTSwapCommunityTest is DSTest {
 
-    using ECDSA for bytes32;
+    using ECDSA for bytes;
     CheatCodes constant cheats = CheatCodes(HEVM_ADDRESS);
 
     function setUp() public {}
@@ -66,8 +66,9 @@ contract NFTSwapCommunityTest is DSTest {
         trade.typ = NFTSwapCommunity.TradeType.NFTxNFT;
         trade.nonce = 1;
 
-        bytes32 hash = keccak256(abi.encode(trade));
-        bytes32 msgHash = hash.toEthSignedMessageHash();
+        //bytes32 hash = keccak256(abi.encode(trade));
+        bytes memory tradeBytes = abi.encode(trade);
+        bytes32 msgHash = tradeBytes.toEthSignedMessageHash();
 
         (uint8 v, bytes32 r, bytes32 s) = cheats.sign(userAkey, msgHash);
 

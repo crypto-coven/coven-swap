@@ -10,6 +10,7 @@ pragma solidity ^0.8.10;
 
 contract NFTSwapCommunity is ReentrancyGuard {
     
+    using ECDSA for bytes;
     using ECDSA for bytes32;
     using SafeERC20 for IERC20;
     
@@ -43,14 +44,14 @@ contract NFTSwapCommunity is ReentrancyGuard {
         maxExpiry = _maxExpiry;
     }
     
-    function swapAuth(bytes32 _hash, address _account, bytes memory _sig) pure internal returns (bool) {
+    function swapAuth(NFTTrade memory _trade, bytes memory tradeBytes, bytes memory _sig) pure internal returns (bool) {
         
         address account;
         ECDSA.RecoverError err;
         
-        (account, err) = _hash.toEthSignedMessageHash().tryRecover(_sig);
+        (account, err) = tradeBytes.toEthSignedMessageHash().tryRecover(_sig);
         
-        if (err != ECDSA.RecoverError.NoError || account != _account) {
+        if (err != ECDSA.RecoverError.NoError || account != _trade.srcUser) {
             return false;
         }
         
@@ -64,12 +65,13 @@ contract NFTSwapCommunity is ReentrancyGuard {
         require(_trade.expiry != 0 && block.timestamp <= _trade.expiry, "Trade expired");
         require(_trade.dstUser == msg.sender || _trade.dstUser == address(0), "Caller is not target of trade");
         
-        bytes32 hash = keccak256(abi.encode(_trade));
+        bytes memory tradeBytes = abi.encode(_trade);
+        bytes32 hash = keccak256(tradeBytes);
         
         require(!finalizedTrades[hash], "Trade already finalized");
         require(!cancelledTrades[hash], "Trade cancelled");
         
-        require(swapAuth(hash, _trade.srcUser, _sig), "Invalid signature for trade");
+        require(swapAuth(_trade, tradeBytes, _sig), "Invalid signature for trade");
         
         return hash;
     }
@@ -95,6 +97,7 @@ contract NFTSwapCommunity is ReentrancyGuard {
         bytes32 hash = keccak256(abi.encode(_trade));
         
         cancelledTrades[hash] = true;
+
         emit Cancelled(hash, _trade);
     }
     
