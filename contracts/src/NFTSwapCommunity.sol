@@ -87,7 +87,7 @@ contract NFTSwapCommunity is ReentrancyGuard {
         
         finalizedTrades[hash] = true;
         
-        emit Swapped(hash, address(NFTContract), _trade.srcUser, _trade.srcTokenNum, _trade.dstUser, _trade.dstTokenNum);
+        emit Swapped(hash, address(NFTContract), _trade.srcUser, _trade.srcTokenNum, msg.sender, _trade.dstTokenNum);
     }
     
     function CancelTrade(NFTTrade memory _trade) external {
