@@ -4,10 +4,11 @@ import "openzeppelin-contracts/contracts/interfaces/IERC721.sol";
 import "openzeppelin-contracts/contracts/interfaces/IERC20.sol";
 import "openzeppelin-contracts/contracts/utils/cryptography/ECDSA.sol";
 import "openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol";
+import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 
 pragma solidity ^0.8.10;
 
-contract NFTSwapCommunity {
+contract NFTSwapCommunity is ReentrancyGuard {
     
     using ECDSA for bytes32;
     using SafeERC20 for IERC20;
@@ -62,22 +63,22 @@ contract NFTSwapCommunity {
     
     function tradeValidation(NFTTrade memory _trade, bytes memory _sig) view internal returns (bytes32) {
         
-        require(_trade.tokenContract == address(NFTContract));
+        require(_trade.tokenContract == address(NFTContract), "Trade was not meant for this contract");
         require(_trade.issueTime <= block.timestamp && _trade.expiry - _trade.issueTime <= maxExpiry, "Trade expiration invalid");
         require(_trade.expiry != 0 && block.timestamp <= _trade.expiry, "Trade expired");
-        require(_trade.dstUser == msg.sender || _trade.dstUser == address(0), "Caller is not target of trade.");
+        require(_trade.dstUser == msg.sender || _trade.dstUser == address(0), "Caller is not target of trade");
         
         bytes32 hash = keccak256(abi.encode(_trade));
         
         require(!finalizedTrades[hash], "Trade already finalized");
         require(!cancelledTrades[hash], "Trade cancelled");
         
-        require(swapAuth(hash, _trade.srcUser, _sig), "Invalid signature for trade.");
+        require(swapAuth(hash, _trade.srcUser, _sig), "Invalid signature for trade");
         
         return hash;
     }
     
-    function SwapNFTxNFT(NFTTrade memory _trade, bytes memory _sig) external {
+    function SwapNFTxNFT(NFTTrade memory _trade, bytes memory _sig) nonReentrant external {
         
         require(_trade.typ == TradeType.NFTxNFT, "Incorrect trade type");
         
@@ -93,7 +94,7 @@ contract NFTSwapCommunity {
     
     function CancelTrade(NFTTrade memory _trade) external {
         
-        require(_trade.srcUser == msg.sender, "Caller is not authorized to cancel this trade.");
+        require(_trade.srcUser == msg.sender, "Caller is not authorized to cancel this trade");
         
         bytes32 hash = keccak256(abi.encode(_trade));
             
