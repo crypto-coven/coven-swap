@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@500&display=swap');
+
+.navbarLogo {
+    /* Coven Swap Logo */
+    position: static;
+    width: 176px;
+    height: 108px;
+    left: 0px;
+    top: 0px;
+
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    margin: 0px 75px;
+}
+
+.container {
+    /* Header */
+
+    /* Auto layout */
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 0px;
+
+    position: absolute;
+    width: 1160px;
+    height: 108px;
+    left: 140px;
+    top: 49px;
+    background:#04060D;
+}
+
+/* active {
+    color: #FCBC98;
+} */
+
+.links {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 0px;
+
+    position: static;
+    width: 679px;
+    height: 26px;
+    left: 0px;
+    top: 41px;
+
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 1;
+    margin: 0px 44px;
+}
+
+.navlink {
+    position: static;
+    left: 0%;
+    right: 0%;
+    top: 0%;
+    bottom: 0%;
+
+    font-family: 'Inconsolata';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 130.9%;
+    color: #FFFFFF;
+    list-style-type: none;
+
+    /* or 26px */
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    margin: 0px 10px;
+}
+
+.navlink a:hover,
+.navlink a:focus,
+.navlink a:active {
+  color: #FCBC98;
+}

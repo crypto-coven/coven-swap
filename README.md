@@ -7,3 +7,8 @@ The `contracts/` directory implements a minimal NFT swap platform locked to a si
 ## App
 
 The `app/` directory is our Next.js Typescript app using styled-components and wagmi & ethers for web3
+
+## How to run
+
+`yarn install`
+`yarn dev`
