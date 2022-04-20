@@ -1,8 +1,8 @@
 import type { NextPage } from 'next'
 import Image from 'next/image';
-import Link from 'next/link';
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
+import { Button } from '../common/Button';
 
 const Home: NextPage = () => {
   return (
@@ -50,7 +50,7 @@ const Home: NextPage = () => {
           
           It calls for you. <br/>
 
-          <a href="/dashboard">Dashboard</a>
+          <Button variant="filled_dark" size="small" href="/dashboard">Enter</Button>
         </p>
       </div>
     </div>
