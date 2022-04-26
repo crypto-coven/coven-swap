@@ -1,17 +1,19 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Navbar from "../components/navbar"
-import styles from '../styles/Home.module.css'
+import styles from '../styles/Dashboard.module.css'
 
 const Dashboard: NextPage = () => {
   return (
-    <div className={styles.container}>
-      <Head>
+    <div>
+        <Head>
         <title>Coven Swap</title>
         <meta name="description" content="Find the WITCH you seek" />
         <link rel="icon" href="/" />
-      </Head>
-      <Navbar/>
+        </Head>
+        <Navbar/>
+        <div className={styles.background}>
+        </div>
     </div>
   )
 }

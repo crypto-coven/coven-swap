@@ -23,13 +23,13 @@
     flex-direction: row;
     align-items: flex-start;
     padding: 0px;
-
     position: absolute;
-    width: 1160px;
-    height: 108px;
+    /* width: 1160px;
+    height: 108px; */
     left: 140px;
     top: 49px;
-    background:#04060D;
+    right: 0px;
+    bottom: 0px;
 }
 
 /* active {
@@ -39,20 +39,19 @@
 .links {
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
+    justify-content: flex-end;
+    align-items: center;
     padding: 0px;
 
-    position: static;
-    width: 679px;
-    height: 26px;
-    left: 0px;
+    position: absolute;
+    left: 125px;
     top: 41px;
-
     /* Inside auto layout */
     flex: none;
     order: 0;
+    align-self: none;
     flex-grow: 1;
-    margin: 0px 44px;
+    margin: 0px 75px;
 }
 
 .navlink {
