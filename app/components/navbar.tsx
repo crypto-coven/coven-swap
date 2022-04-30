@@ -12,17 +12,19 @@ const navbar= () =>{
         className={styles.navbarLogo}
         width={176}
         height={108}
-    />
-    <div className={styles.links}>
-        <li className={styles.navlink}>
-        <Link href="/swaps">SWAPS</Link>
-        </li>
-        <li className={styles.navlink}>
-        <Link href="/faq">FAQ</Link>
-        </li>
-    </div>
+      />
+      <div className={styles.links}>
+          <li className={styles.navlink}>
+          <Link href="/swaps">SWAPS</Link>
+          </li>
+          <li className={styles.navlink}>
+          <Link href="/faq">FAQ</Link>
+          </li>
+          <div className={styles.addressBox}>
+            <div className={styles.addressText}>NAME.ETH</div>
+          </div>
+      </div>
   </div>
-  // Include Button for CONNECT WALLET
   );
 }
 export default navbar;

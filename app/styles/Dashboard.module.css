@@ -6,5 +6,57 @@
   bottom: 0px;
   background: linear-gradient(180deg, #04060D 0%, #0E0E1A 26.56%, #0E0E1A 80.21%, #0E0E1D 99.48%);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  z-index:-1;
+  z-index:-100;
   }
+
+.container {
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  top: 0px;
+  bottom: 0px;
+
+  /* background: url(Grain.jpg); */
+  mix-blend-mode: color-dodge;
+}
+
+.content {
+  position: absolute;
+  width: 1160px;
+  height: 75px;
+  left: 125px;
+  top: 221px;
+}
+
+.messageBox {
+  position: absolute;
+  width: 1160px;
+  height: 75px;
+  left: 125px;
+  top: 221px;
+
+  background: rgba(0, 0, 0, 0.22);
+  border-radius: 10px;
+}
+
+.messageBox p {
+  position: absolute;
+  width: 584px;
+  height: 21px;
+  left: 413px;
+  top: 248px;
+
+  font-family: 'Inconsolata';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 130.9%;
+  /* identical to box height, or 21px */
+
+  text-align: center;
+  color: #A2A0EC;
+}
+
+.messageBox a:hover {
+  text-decoration: underline;
+}
