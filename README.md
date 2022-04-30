@@ -13,6 +13,5 @@ The `app/` directory is our Next.js Typescript app using styled-components and w
 
 ```
 cd app/
-yarn install
-yarn dev
+npm run dev
 ```
