@@ -7,21 +7,14 @@
     height: 108px;
     left: 0px;
     top: 0px;
-
-    /* Inside auto layout */
-    flex: none;
-    order: 0;
-    flex-grow: 0;
-    margin: 0px 75px;
 }
 
 .container {
     /* Header */
-
     /* Auto layout */
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
+    align-items: center;
     padding: 0px;
     position: absolute;
     height: 108px;
@@ -29,6 +22,23 @@
     top: 49px;
     right: 140px;
     bottom: 49px;
+}
+
+.content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px;
+    position: static;
+    height: 108px;
+    left: 251px;
+    top: 0px;
+    /* Inside auto layout */
+    flex: none;
+    order: 1;
+    align-self: stretch;
+    flex-grow: 1;
+    margin: 0px;
 }
 
 .links {
@@ -72,9 +82,9 @@
     margin: 0px 10px;
 }
 
-.navlink a:hover,
-.navlink a:focus,
-.navlink a:active {
+.links a:hover,
+.links a:focus,
+.links a:active {
   color: #FCBC98;
 }
 
@@ -84,7 +94,7 @@
     align-items: flex-start;
     align-self: flex-end;
     /* justify-content: flex-start; */
-    padding: 4px 15px;
+    padding: 4px 4px;
 
     position: static;
     right: 0px;
@@ -93,13 +103,6 @@
     border: 1px solid #FFFFFF;
     box-sizing: border-box;
     border-radius: 50px;
-
-    /* Inside auto layout */
-
-    flex: none;
-    order: 0;
-    flex-grow: 0;
-    margin-left: auto;
 }
 
 .push {
@@ -107,11 +110,11 @@
 }
 
 .addressText {
-    position: static;
+    /* position: static;
     left: 12.61%;
     right: 12.61%;
     top: 11.76%;
-    bottom: 11.76%;
+    bottom: 11.76%; */
 
     font-family: 'Inconsolata';
     font-style: normal;

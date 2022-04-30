@@ -13,33 +13,36 @@ type ModalProps = {
     moon: string;
     rising: string;
     articulation: string;
-    // show: boolean;
+    show: boolean;
+    hide: () => void;
 };
 
-const Modal = ({ imageUrl, witchId, name, archetype, sun, moon, rising, articulation }: ModalProps) => {
-    // const close = () => {
-    //     show = false;
-    // }
-    // if (!show) {
-    //     return null
-    // }
+const Modal = ({ imageUrl, witchId, name, archetype, sun, moon, rising, articulation, show, hide }: ModalProps) => {
+    if (!show) {
+        return null
+    }
   return (
-    <div className={styles.modal} onClick={e => e.stopPropagation()}>
+    <div className={styles.modal}>
+        <div className={styles.overlay}></div>
         <div className={styles.content}>
-            <Image
-                src={imageUrl}
-                className={styles.image}
-                width={490}
-                height={500}
-            />
-            <div className={styles.description}>
-                <Image 
-                    src="/coolicon.png"
-                    alt="close"
-                    className={styles.closeModal}
-                    width={12.5}
-                    height={12.5}
+            <div className={styles.imageWrapper}>
+                <Image
+                    src={imageUrl}
+                    className={styles.image}
+                    width={490}
+                    height={500}
                 />
+            </div>
+            <div className={styles.description}>
+                <button className={styles.closeModal}
+                onClick={hide}>
+                    <Image 
+                        src="/coolicon.png"
+                        alt="close"
+                        width={12.5}
+                        height={12.5}
+                    />
+                </button>
                 <p className={styles.details}>#{witchId}</p>
                 <h1 className={styles.witchName}>{name}</h1>
                 <p className={styles.header}>archetype</p>
