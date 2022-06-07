@@ -6,9 +6,70 @@ import styles from '../styles/Dashboard.module.css'
 import Modal from '../components/modal';
 import { style } from 'styled-system';
 
+import {
+  NetworkAndEtherscanUri,
+  Status,
+  StatusType,
+  WalletResponse,
+} from '../config/types';
+import {
+  connectWallet,
+  fetchContract,
+  fetchNetworkAndEtherscanUri,
+  getCurrentWalletConnected,
+  installMetamask,
+} from '../utils/interact';
+import {
+  ENV,
+  mainnetEtherscanTxUri,
+  mainNetwork,
+} from '../utils/constants';
+import { globals } from '../config/globals';
+
 export default function Dashboard() {
+  const [status, setStatus] = useState<Status>({
+    statusMessage: null,
+    statusType: StatusType.none,
+  });
   const [seeWitchDetails, setSeeWitchDetails] = useState(false);
+  const [walletAddress, setWallet] = useState('');
   const toggle = () => setSeeWitchDetails(!seeWitchDetails);
+  const [networkAndEtherscanUri, setNetworkAndEtherscanUri] =
+    useState<NetworkAndEtherscanUri>({
+      network: mainNetwork,
+      etherscanUri: mainnetEtherscanTxUri,
+    });
+
+    const getNetworkAndEtherscanUri = async () => {
+      const [network, etherscanUri] = await fetchNetworkAndEtherscanUri();
+      setNetworkAndEtherscanUri({ network, etherscanUri });
+    };
+
+    const onWalletConnected = (walletResponse: WalletResponse) => {
+      setStatus({
+          statusMessage: walletResponse.status,
+          statusType: walletResponse.type,
+      });
+      if (walletResponse.address && walletResponse.address.length > 0) {
+          setWallet(walletResponse.address);
+      }
+  };
+
+  const onWalletDisconnect = () => {
+      setStatus({
+          statusMessage: null,
+          statusType: StatusType.none,
+      });
+      setWallet('');
+  }
+
+  const getWallet = async () => {
+      const { address, status, type } = await getCurrentWalletConnected();
+      setStatus({ statusMessage: status, statusType: type });
+      if (address) {
+          setWallet(address);
+      }
+  };
 
   return (
     <div className={styles.background}>
@@ -18,7 +79,12 @@ export default function Dashboard() {
         <link rel="icon" href="/" />
         </Head>
         {/* <div className={styles.content}> */}
-        <Navbar/>
+        <Navbar
+          hasConnect
+          onWalletConnected={onWalletConnected}
+          onWalletDisconnect={onWalletDisconnect}
+          walletAddress={walletAddress}
+        />
         <div className={styles.container}>
             <div className={styles.messageBox}>
                 <p>

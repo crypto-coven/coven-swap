@@ -1,0 +1,252 @@
+[
+    {
+        "inputs": [
+            {
+                "internalType": "contract IERC721",
+                "name": "_token",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_maxExpiry",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "constructor"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "bytes32",
+                "name": "tradeHash",
+                "type": "bytes32"
+            },
+            {
+                "components": [
+                    {
+                        "internalType": "address",
+                        "name": "tokenContract",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "srcUser",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "dstUser",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "srcTokenNum",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "dstTokenNum",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "issueTime",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "expiry",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "enum NFTSwapCommunity.TradeType",
+                        "name": "typ",
+                        "type": "uint8"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "nonce",
+                        "type": "uint256"
+                    }
+                ],
+                "indexed": false,
+                "internalType": "struct NFTSwapCommunity.NFTTrade",
+                "name": "trade",
+                "type": "tuple"
+            }
+        ],
+        "name": "Cancelled",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "bytes32",
+                "name": "tradeHash",
+                "type": "bytes32"
+            },
+            {
+                "indexed": false,
+                "internalType": "address",
+                "name": "token",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "address",
+                "name": "from",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "fromId",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "address",
+                "name": "to",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "toId",
+                "type": "uint256"
+            }
+        ],
+        "name": "Swapped",
+        "type": "event"
+    },
+    {
+        "inputs": [
+            {
+                "components": [
+                    {
+                        "internalType": "address",
+                        "name": "tokenContract",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "srcUser",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "dstUser",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "srcTokenNum",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "dstTokenNum",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "issueTime",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "expiry",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "enum NFTSwapCommunity.TradeType",
+                        "name": "typ",
+                        "type": "uint8"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "nonce",
+                        "type": "uint256"
+                    }
+                ],
+                "internalType": "struct NFTSwapCommunity.NFTTrade",
+                "name": "_trade",
+                "type": "tuple"
+            }
+        ],
+        "name": "CancelTrade",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "components": [
+                    {
+                        "internalType": "address",
+                        "name": "tokenContract",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "srcUser",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "dstUser",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "srcTokenNum",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "dstTokenNum",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "issueTime",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "expiry",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "enum NFTSwapCommunity.TradeType",
+                        "name": "typ",
+                        "type": "uint8"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "nonce",
+                        "type": "uint256"
+                    }
+                ],
+                "internalType": "struct NFTSwapCommunity.NFTTrade",
+                "name": "_trade",
+                "type": "tuple"
+            },
+            {
+                "internalType": "bytes",
+                "name": "_sig",
+                "type": "bytes"
+            }
+        ],
+        "name": "SwapNFTxNFT",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    }
+]
