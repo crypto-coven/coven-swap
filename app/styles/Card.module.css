@@ -1,0 +1,107 @@
+.card {
+    width: 260px;
+    height: 362px;
+    left: 0px;
+    top: 0px;
+    background: #393F51;
+    border-radius: 12px;
+}
+
+.infoContainer {
+    width: 228px;
+    height: 75px;
+    left: 16px;
+    top: 271px;
+    margin: 16px;
+}
+
+.image {
+    position: absolute;
+    width: 260px;
+    height: 255px;
+    left: calc(50% - 260px/2 - 450px);
+    top: 0px;
+    border-radius: 12px 12px 0px 0px;
+}
+
+.name {
+    width: 228px;
+    height: 42px;
+    left: 16px;
+    top: 271px;
+
+    font-family: 'Inconsolata';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 130.9%;
+    /* or 21px */
+    color: #FFFFFF;
+}
+
+.footer {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 3px;
+
+    width: 228px;
+    height: 21px;
+    left: 16px;
+    top: 325px;
+}
+
+.archetype {
+    font-family: 'Inconsolata';
+    font-style: normal;
+    text-transform: lowercase;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 130.9%;
+    /* identical to box height, or 21px */
+
+    color: #CBAE99;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 10px;
+    width: 143px;
+    height: 21px;
+    /* Inside auto layout */
+
+    flex: none;
+    order: 0;
+    flex-grow: 1;
+}
+
+.starchart {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 4px 10px 0px;
+    gap: 7px;
+
+    width: 82px;
+    height: 20px;
+
+    background: rgba(0, 0, 0, 0.09);
+    border-radius: 20px;
+
+    /* Inside auto layout */
+
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+.sign {
+    left: 16.67%;
+    right: 16.67%;
+    top: 6.67%;
+    bottom: 26.67%;
+
+    color: #CBAE99;
+}

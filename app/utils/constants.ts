@@ -12,6 +12,11 @@ export const mainNetwork: EthereumNetwork = {
     networkName: 'Ethereum Mainnet',
 };
 
+export const localHostNetwork: EthereumNetwork = {
+    chainId: '1337',
+    networkName: 'Localhost',
+};
+
 export const ENV = {
     DESKTOP: 'desktop',
     MOBILE: 'mobile',

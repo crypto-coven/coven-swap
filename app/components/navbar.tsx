@@ -1,55 +1,67 @@
 import React from 'react';
 import { useEffect, useRef, useState } from 'react';
+import {ethers} from "ethers";
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from '../styles/Navbar.module.css';
 import { style } from 'styled-system';
-import { connectWallet } from '../utils/interact';
-import { WalletResponse } from '../config/types';
+declare let window:any;
 
-type NavbarProps = {
-  hasConnect: boolean;
-  walletAddress?: string;
-  onWalletConnected?: (walletResponse: WalletResponse) => void;
-  onWalletDisconnect?: () => void;
-}
+const Navbar = () => {
+  const [currentAccount, setCurrentAccount] = useState("");
+  const isMetamaskConnected = !!currentAccount;
+  /*
+   * A function to check if a user wallet is connected.
+   */
+  const checkIfWalletIsConnected = async () => {
+    try {
+      const { ethereum } = window;
 
-const navbar = ({
-  hasConnect,
-  walletAddress,
-  onWalletConnected,
-  onWalletDisconnect,
-}: NavbarProps) => {
-  const [currentPath, setCurrentPath] = useState('/');
-    const connectButtonRef = useRef(null);
-    const connectWalletPressed = async () => {
-        const walletResponse = await connectWallet();
-        if (onWalletConnected) {
-            onWalletConnected(walletResponse);
-        }
-    };
+      /*
+       * Check if we're authorized to access the user's wallet
+       */
+      const accounts = await ethereum.request({ method: "eth_accounts" });
 
-    const disconnectWalletPressed = async () => {
-        if (onWalletDisconnect) {
-            onWalletDisconnect();
-        }
-    };    
+      if (accounts.length !== 0) {
+        const account = accounts[0];
+        setCurrentAccount(account);
+        // success("🦄 Wallet is Connected!");
+      } else {
+        // success("Welcome 🎉  ");
+        // warn("To create a feed, Ensure your wallet Connected!");
+      }
+    } catch (err) {
+      // error(`${err.message}`);
+    }
+  };
 
-    const changeTexttoDisconnect = () => {
-        if (!connectButtonRef.current) {
-            return;
-        }
-        (connectButtonRef.current as any).innerText = 'Disconnect wallet';
-    };
+  /**
+   * Implement your connectWallet method here
+   */
+  const connectWallet = async () => {
+    try {
+      const { ethereum } = window;
 
-    const changeTextBack = () => {
-        if (!connectButtonRef.current) {
-            return;
-        }
-        (connectButtonRef.current as any).innerText = `Connected: ${String(
-            walletAddress
-        ).substring(0, 6)}...${String(walletAddress).substring(38)}`;
-    };
+      if (!ethereum) {
+        // warn("Make sure you have MetaMask Connected");
+        return;
+      }
+
+      const accounts = await ethereum.request({
+        method: "eth_requestAccounts",
+      });
+      setCurrentAccount(accounts[0]);
+    } catch (err) {
+      // error(`${err.message}`);
+    }
+  };
+
+  /*
+   * This runs our function when the page loads.
+   */
+  useEffect(() => {
+    checkIfWalletIsConnected();
+  }, []);
 
   return (
     <div className={styles.container}>
@@ -70,40 +82,26 @@ const navbar = ({
             </li>
         </div>
         <div className={styles.push}>
-          {hasConnect && (
-            <>
-              {walletAddress ? (
-                  <div className={styles.addressBox}>
-                  <button 
-                    className={styles.addressText}
-                    ref={connectButtonRef}
-                    id="walletButton"
-                    onMouseEnter={changeTexttoDisconnect}
-                    onMouseLeave={changeTextBack}
-                    onClick={disconnectWalletPressed}
-                  >
-                    {`Connected: ${String(
-                                        walletAddress
-                                    ).substring(0, 6)}...${String(
-                                        walletAddress
-                                    ).substring(38)}`}
-                  </button>
-                </div>
-              ) : (
-                <div className={styles.addressBox}>
-                  <button 
-                    className={styles.addressText}
-                    onClick={connectWalletPressed}
-                  >
-                    CONNECT WALLET
-                  </button>
-                </div>
-              )}
-              </>
+          <div className={styles.addressBox}>
+          {!isMetamaskConnected && (
+            <button 
+              className={styles.addressText}
+              onClick={connectWallet}
+            >
+              CONNECT WALLET
+            </button>
+          )}
+          {isMetamaskConnected && (
+            <div
+              className={styles.addressText}
+            >
+              {`${String(currentAccount).substring(0, 6)}...${String(currentAccount).substring(38)}`}
+            </div>
           )}
           </div>
+         </div>
       </div>
   </div>
   );
 }
-export default navbar;
+export default Navbar;
