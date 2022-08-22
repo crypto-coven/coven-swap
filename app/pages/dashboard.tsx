@@ -6,6 +6,9 @@ import styles from '../styles/Dashboard.module.css'
 import Modal from '../components/modal';
 import Card from '../components/card';
 import { style } from 'styled-system';
+import { WagmiConfig, createClient, useAccount } from 'wagmi'
+import { getDefaultProvider } from 'ethers'
+import { InjectedConnector } from 'wagmi/connectors/injected'
 // import { getWitchCount } from './api/api'
 
 declare let window:any;
@@ -14,30 +17,10 @@ export default function Dashboard() {
 
   const [seeWitchDetails, setSeeWitchDetails] = useState(false);
   const toggle = () => setSeeWitchDetails(!seeWitchDetails);
-  const [currentAccount, setCurrentAccount] = useState("");
+  const { address, connector, isConnected } = useAccount()
 
-  // TODO: don't repeat this
-  const checkIfWalletIsConnected = async () => {
-    try {
-      const { ethereum } = window;
-      const accounts = await ethereum.request({ method: "eth_accounts" });
-
-      if (accounts.length !== 0) {
-        const account = accounts[0];
-        setCurrentAccount(account);
-      } 
-    } catch (err) {
-      console.log(err.message)
-    }
-  };
-
-  const isWalletNotConnected = !currentAccount;
   //const witchCount = Promise.resolve(getWitchCount(currentAccount));
   const hasWitches = false;
-
-  useEffect(() => {
-    checkIfWalletIsConnected();
-  }, []);
 
   return (
     <div className={styles.background}>
@@ -49,12 +32,12 @@ export default function Dashboard() {
         {/* <div className={styles.content}> */}
         <Navbar></Navbar>
         <div className={styles.container}>
-          {isWalletNotConnected && (
+          {!isConnected && (
             <div className={styles.messageBox}>
               <p>Connect your wallet to get started!</p>
             </div>
           )}
-          {hasWitches && (
+          {isConnected && !hasWitches && (
             <div className={styles.messageBox}>
                 <p>
                 Alas, there are no WITCHES in your coven. View the collection on <a href="https://opensea.io/collection/cryptocoven">OpenSea</a>.

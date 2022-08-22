@@ -1,6 +1,7 @@
 import React from 'react';
 import { useEffect, useRef, useState } from 'react';
-import {ethers} from "ethers";
+import { useAccount, useConnect, useDisconnect, useEnsName } from 'wagmi'
+import { InjectedConnector } from 'wagmi/connectors/injected'
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from '../styles/Navbar.module.css';
@@ -8,60 +9,12 @@ import { style } from 'styled-system';
 declare let window:any;
 
 const Navbar = () => {
-  const [currentAccount, setCurrentAccount] = useState("");
-  const isMetamaskConnected = !!currentAccount;
-  /*
-   * A function to check if a user wallet is connected.
-   */
-  const checkIfWalletIsConnected = async () => {
-    try {
-      const { ethereum } = window;
-
-      /*
-       * Check if we're authorized to access the user's wallet
-       */
-      const accounts = await ethereum.request({ method: "eth_accounts" });
-
-      if (accounts.length !== 0) {
-        const account = accounts[0];
-        setCurrentAccount(account);
-        // success("🦄 Wallet is Connected!");
-      } else {
-        // success("Welcome 🎉  ");
-        // warn("To create a feed, Ensure your wallet Connected!");
-      }
-    } catch (err) {
-      // error(`${err.message}`);
-    }
-  };
-
-  /**
-   * Implement your connectWallet method here
-   */
-  const connectWallet = async () => {
-    try {
-      const { ethereum } = window;
-
-      if (!ethereum) {
-        // warn("Make sure you have MetaMask Connected");
-        return;
-      }
-
-      const accounts = await ethereum.request({
-        method: "eth_requestAccounts",
-      });
-      setCurrentAccount(accounts[0]);
-    } catch (err) {
-      // error(`${err.message}`);
-    }
-  };
-
-  /*
-   * This runs our function when the page loads.
-   */
-  useEffect(() => {
-    checkIfWalletIsConnected();
-  }, []);
+  const { address } = useAccount()
+  const { data: ensName } = useEnsName({ address })
+  const { connect } = useConnect({
+    connector: new InjectedConnector(),
+  })
+  const { disconnect } = useDisconnect()
 
   return (
     <div className={styles.container}>
@@ -83,19 +36,19 @@ const Navbar = () => {
         </div>
         <div className={styles.push}>
           <div className={styles.addressBox}>
-          {!isMetamaskConnected && (
+          {!address && (
             <button 
               className={styles.addressText}
-              onClick={connectWallet}
+              onClick={() => connect()}
             >
               CONNECT WALLET
             </button>
           )}
-          {isMetamaskConnected && (
+          {address && (
             <div
               className={styles.addressText}
             >
-              {`${String(currentAccount).substring(0, 6)}...${String(currentAccount).substring(38)}`}
+              {ensName ? `${ensName}` : `${String(address).substring(0, 6)}...${String(address).substring(38)}`}
             </div>
           )}
           </div>
