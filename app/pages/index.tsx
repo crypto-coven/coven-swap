@@ -1,30 +1,43 @@
-import type { NextPage } from 'next'
-import Image from 'next/image';
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
-import { Button } from '../common/Button';
+import type { NextPage } from "next";
+import Head from "next/head";
+import { Button } from "../components/Button";
+import styled from "styled-components";
 
 const Home: NextPage = () => {
   return (
-    <div className={styles.container}>
+    <div>
       <Head>
         <title>Coven Swap</title>
         <meta name="description" content="Find the WITCH you seek" />
         <link rel="icon" href="/" />
       </Head>
-      <Image
-        src="/homepage.jpg"
-        alt="homepage background"
-        className={styles.bgImage}
-        layout="fill"
-        objectFit="cover"
-        quality={100}
-      />
-      <div className={styles.centered}>
-        <Button variant="filled_dark" size="small" href="/dashboard">Enter</Button>
-      </div>
-    </div>
-  )
-}
 
-export default Home
+      <BackgroundImage>
+        <ButtonContainer>
+          <Button variant="filled_dark" size="small" href="/dashboard">
+            Enter
+          </Button>
+        </ButtonContainer>
+      </BackgroundImage>
+    </div>
+  );
+};
+
+const BackgroundImage = styled.div`
+  background-image: url(/homepage.jpg);
+  min-width: 100%;
+  min-height: 100vh;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+`;
+
+const ButtonContainer = styled.div`
+  position: absolute;
+  top: 75%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+`;
+export default Home;
