@@ -96,10 +96,12 @@ const StyledButton = styled("button").attrs<StyledButtonProps>((props) => ({
           color: "black",
         },
         ["outline_dark"]: {
+          background: "none",
           border: "1px solid white",
           color: "white",
         },
         ["outline_light"]: {
+          background: "none",
           border: "1px solid white",
           color: "black",
         },

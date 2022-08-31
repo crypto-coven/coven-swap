@@ -1,10 +1,10 @@
 import type { NextPage } from "next";
 import React, { useState, useEffect } from "react";
 import Head from "next/head";
-import Navbar from "../components/navbar";
+import Navbar from "../components/Navbar";
 import styles from "../styles/Dashboard.module.css";
-import Modal from "../components/modal";
-import Card from "../components/card";
+import Modal from "../components/Modal";
+import Card from "../components/Card";
 import { style } from "styled-system";
 import { WagmiConfig, createClient, useAccount } from "wagmi";
 import { getDefaultProvider } from "ethers";
@@ -30,7 +30,7 @@ export default function Dashboard() {
         <link rel="icon" href="/" />
       </Head>
       {/* <div className={styles.content}> */}
-      <Navbar></Navbar>
+      <Navbar/>
       <div className={styles.container}>
         {!isConnected && (
           <div className={styles.messageBox}>

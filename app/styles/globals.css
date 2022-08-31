@@ -1,14 +1,17 @@
 @import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@500&display=swap");
 
-html,
-body {
+html {
   background: #04060d;
   color: #ffffff;
   width: 100%;
   height: 100%;
   margin: 0px;
 }
-
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+}
 a {
   color: inherit;
   text-decoration: none;

@@ -1,7 +1,7 @@
 import type { NextPage } from 'next'
 import React, { useState } from 'react';
 import Head from 'next/head'
-import Navbar from "../components/navbar"
+import Navbar from "../components/Navbar"
 import styles from '../styles/Dashboard.module.css'
 import { style } from 'styled-system';
 
