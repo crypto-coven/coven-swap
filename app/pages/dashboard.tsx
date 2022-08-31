@@ -10,6 +10,7 @@ import { WagmiConfig, createClient, useAccount } from "wagmi";
 import { getDefaultProvider } from "ethers";
 import { InjectedConnector } from "wagmi/connectors/injected";
 import { NewCard } from "../components/NewCard";
+import { Text } from "../components/Text";
 // import { getWitchCount } from './api/api'
 
 declare let window: any;
@@ -30,11 +31,14 @@ export default function Dashboard() {
         <link rel="icon" href="/" />
       </Head>
       {/* <div className={styles.content}> */}
-      <Navbar/>
+      <Navbar />
+      <Text.Heading size="large">Coven Swap</Text.Heading>
       <div className={styles.container}>
         {!isConnected && (
           <div className={styles.messageBox}>
-            <p>Connect your wallet to get started!</p>
+            <Text.Body size="small" color={({ theme }) => theme.text.lavendar}>
+              Connect your wallet to get started!
+            </Text.Body>
           </div>
         )}
         {isConnected && !hasWitches && (
@@ -45,10 +49,16 @@ export default function Dashboard() {
             </p>
           </div>
         )}
-        <div className={styles.header}>Your Coven</div>
-        <div className={styles.subheader}># witches</div>
+        <Text.Heading size="large">YOUR COVEN</Text.Heading>
+        {/* @junaama FIX TYPES */}
+        <Text.Body size="small" color={({ theme }) => theme.text.gray}>
+          # witches
+        </Text.Body>
+
         <div className={styles.messageBox}>
-          <p>Select a witch to start a swap!</p>
+          <Text.Body size="small" color={({ theme }) => theme.text.lavendar}>
+            Select a witch to start a swap!
+          </Text.Body>
         </div>
         <div className={styles.witchContainer}>
           <NewCard
