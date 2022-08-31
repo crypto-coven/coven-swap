@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { variant } from "styled-system";
+import { variant, color, ColorProps } from "styled-system";
 
 type TextSize = "xsmall" | "small" | "medium" | "large";
 
@@ -7,12 +7,14 @@ const headingSizes = css`
   --text-large: 30px;
   --text-small: 26px;
 `;
+
 const bodySizes = css`
   --text-large: 24px;
   --text-medium: 20px;
   --text-small: 16px;
   --text-xsmall: 12px;
 `;
+
 const textSizeVariant = variant({
   prop: "size",
   variants: {
@@ -30,15 +32,24 @@ const textSizeVariant = variant({
     },
   },
 });
-const Body = styled.div.attrs<TextSize>({})`
+
+const TextContainer = styled.div<ColorProps>`
+  ${color}
+`;
+
+const Body = styled(TextContainer).attrs<TextSize>({})`
   font-family: "Inconsolata";
+  color: ${(props) => props.color ?? props.theme.text.white};
   ${bodySizes};
   ${textSizeVariant};
 `;
-const Heading = styled.div.attrs<TextSize>({})`
+
+const Heading = styled(TextContainer).attrs<TextSize>({})`
   font-family: "Germania One" ${headingSizes};
+  color: ${(props) => props.color ?? props.theme.text.white};
   ${textSizeVariant};
 `;
+
 export const Text = Object.assign(Body, {
   Body,
   Heading,
