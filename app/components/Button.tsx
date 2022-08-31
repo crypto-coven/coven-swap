@@ -1,24 +1,15 @@
 import { forwardRef } from "react";
 import styled from "styled-components";
-import { Values } from "../../lib/type";
 import { variant } from "styled-system";
 
-const VARIANTS = {
-  filled_dark: "filled_dark",
-  filled_light: "filled_light",
-  outline_dark: "outline_dark",
-  outline_light: "outline_light",
-  inactive: "inactive",
-};
+type ButtonVariant =
+  | "filled_dark"
+  | "filled_light"
+  | "outline_dark"
+  | "outline_light"
+  | "inactive";
 
-const SIZES = {
-  small: "small",
-  large: "large",
-};
-
-type ButtonVariant = Values<typeof VARIANTS>;
-
-type ButtonSize = Values<typeof SIZES>;
+type ButtonSize = "small" | "large";
 
 type ButtonProps = Omit<JSX.IntrinsicElements["button"], "ref"> & {
   variant?: ButtonVariant;
@@ -27,9 +18,18 @@ type ButtonProps = Omit<JSX.IntrinsicElements["button"], "ref"> & {
 } & Omit<JSX.IntrinsicElements["a"], "ref">;
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  function Button({ children, size = SIZES.small, href, ...buttonProps }, ref) {
+  function Button(
+    { children, variant = "filled_dark", size = "small", href, ...buttonProps },
+    ref
+  ) {
     return (
-      <StyledButton {...buttonProps} $size={size} href={href} ref={ref}>
+      <StyledButton
+        {...buttonProps}
+        $size={size}
+        $variant={variant}
+        href={href}
+        ref={ref}
+      >
         {children}
       </StyledButton>
     );
@@ -39,20 +39,21 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 type StyledButtonProps = Omit<JSX.IntrinsicElements["button"], "ref"> & {
   href?: string;
   $size: ButtonSize;
+  $variant: ButtonVariant;
   as?: keyof JSX.IntrinsicElements | React.ComponentType<{}> | undefined;
 };
 
 const isButton = (props: StyledButtonProps) => !(props.as ?? props.href);
 
-const StyledButton = styled("div").attrs<StyledButtonProps>((props) => ({
+const StyledButton = styled("button").attrs<StyledButtonProps>((props) => ({
   as: isButton(props) ? "button" : "a",
-  type: isButton(props) ? props.type ?? "button" : undefined,
 }))<StyledButtonProps>`
   display: inline-flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   z-index: 10;
+
   :hover:not([disabled]) {
     transition: 0.2s;
     box-shadow: black;
@@ -65,13 +66,13 @@ const StyledButton = styled("div").attrs<StyledButtonProps>((props) => ({
     variant({
       prop: "$size",
       variants: {
-        [SIZES.large]: {
+        ["large"]: {
           fontSize: "26px",
           fontWeight: 600,
           padding: "12px 130px",
           borderRadius: "12px",
         },
-        [SIZES.small]: {
+        ["small"]: {
           fontSize: "20px",
           fontWeight: 500,
           padding: "6px 25px",
@@ -82,34 +83,30 @@ const StyledButton = styled("div").attrs<StyledButtonProps>((props) => ({
 
   ${(props) =>
     variant({
-      prop: "variant",
+      prop: "$variant",
       variants: {
-        [VARIANTS.filled_dark]: {
+        ["filled_dark"]: {
           border: "1px solid black",
           backgroundColor: "#000000",
           color: "white",
         },
-        [VARIANTS.filled_light]: {
+        ["filled_light"]: {
           border: "1px solid white",
           backgroundColor: "white",
           color: "black",
         },
-        [VARIANTS.outline_dark]: {
+        ["outline_dark"]: {
           border: "1px solid white",
           color: "white",
         },
-        [VARIANTS.outline_light]: {
+        ["outline_light"]: {
           border: "1px solid white",
           color: "black",
         },
-        [VARIANTS.inactive]: {
+        ["inactive"]: {
           backgroundColor: "#c4c4c4",
           color: "white",
         },
       },
     })}
 `;
-
-Button.defaultProps = {
-  variant: "primary",
-};
