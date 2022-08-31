@@ -46,7 +46,7 @@ const Body = styled(TextContainer).attrs<{ size: TextSize }>({})`
 
 const Heading = styled(TextContainer).attrs<{ size: TextSize }>({})`
   font-family: "Germania One";
-  color: ${(props) => props.color ?? props.theme.text.white};
+  color: ${(props) => props.color ?? props.theme.text.peach};
   ${headingSizes};
   ${textSizeVariant};
 `;
