@@ -37,16 +37,17 @@ const TextContainer = styled.div<ColorProps>`
   ${color}
 `;
 
-const Body = styled(TextContainer).attrs<TextSize>({})`
+const Body = styled(TextContainer).attrs<{ size: TextSize }>({})`
   font-family: "Inconsolata";
   color: ${(props) => props.color ?? props.theme.text.white};
   ${bodySizes};
   ${textSizeVariant};
 `;
 
-const Heading = styled(TextContainer).attrs<TextSize>({})`
-  font-family: "Germania One" ${headingSizes};
+const Heading = styled(TextContainer).attrs<{ size: TextSize }>({})`
+  font-family: "Germania One";
   color: ${(props) => props.color ?? props.theme.text.white};
+  ${headingSizes};
   ${textSizeVariant};
 `;
 
